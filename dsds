@@ -1,10 +1,10 @@
 import zlib
 import urllib
+import json
+import pandas as pd
 
-f=urllib.request.urlopen('https://egrul.itsoft.ru/7730588444.json.gz') 
+f=urllib.request.urlopen('https://egrul.itsoft.ru/7704756043.json.gz') 
 decompressed_data=zlib.decompress(f.read(), 16+zlib.MAX_WBITS)
-print(decompressed_data)
-
-#content = gzdecode(file_get_contents('https://egrul.itsoft.ru/7730588444.json.gz'));
-#json = json_decode(content,TRUE);
-#print_r(json)
+json = json.loads(decompressed_data)
+data = pd.DataFrame.from_dict(json)
+x = data.to_excel(r'C:\Users\au_koshcheev\data.xlsx')
